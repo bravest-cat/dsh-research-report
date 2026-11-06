@@ -1,6 +1,10 @@
 <div align="center">
 
 # 📑 dsh-research-report
+
+> [!NOTE]
+> **Credits & Upstream Attribution**: This repository is an English translation distribution of [`PerryLink/dsh-research-report`](https://github.com/PerryLink/dsh-research-report), originally created by [PerryLink](https://github.com/PerryLink) and contributors. All core evidence-ledger architecture and verification protocol design belong to the original creators.
+
 - **1024 store channel**: `npm i -g dsh1024` once, then `dsh1024 plugin --profile web add dsh-research-report` (counts toward the [deepseek1024.com](https://deepseek1024.com) install ranking).
 [![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-research-report)
 [![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-research-report?metric=downloads)](https://dshfind.com/plugins/PerryLink/dsh-research-report?ref=badge)
@@ -12,7 +16,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
-[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-research-report.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
+[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-research-report.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-badge)
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-top-rated.svg)](https://dsh.market/)
 [![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24-brightgreen.svg)](#)
 [![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-research-report/ci.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-research-report/actions)
@@ -43,9 +47,9 @@ dsh plugin --profile demo remove dsh-research-report    # uninstall
 
 Verify the row mounts: `dsh --profile demo --dump-config | grep dsh-research-report`.
 
-## ⭐ 如果它帮到了你
+## ⭐ If this helped you
 
-这个插件是 [DSH 插件家族](https://github.com/PerryLink)的一员（95 个，全部 Apache-2.0）。如果你在用，**给个 star** —— 它不会解锁任何功能，但会让下一个人在搜索里更容易找到它。
+This plugin is part of the [DSH Plugin Family](https://github.com/PerryLink) (95 plugins, all Apache-2.0). If you are using it, **please give it a star** — it does not unlock any hidden features, but it helps the next person find it more easily in searches.
 
 *English:* part of a 95 plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
 
@@ -84,7 +88,7 @@ Every claim is bound to immutable evidence snapshots, verified byte-for-byte, an
 - **Read-only verifier loop** — after sealing, a deterministic `verifySealedReport` fallback (zero network, zero model) recomputes the seal and audit hashes and re-checks every claim, writing the machine check to `verifier-note.md`; when `ctx.jobs` is mounted a read-only verifier job is also spawned (the model review is an enhancement, never a replacement).
 - **Standalone verifier CLI** — `dsh-research-verify --report <dir> [--seal <sha256>] [--ledger <dir>] [--format json|sarif]` recomputes the seal hash + per-claim re-checks from the sealed directory alone and prints a JSON envelope or a SARIF 2.1.0 document (see [Verifier CLI](#verifier-cli)).
 - **Session-anchored evidence** — `evidence_add` accepts an optional `sessionRef` (`sessionId` + `eventRange`, validated loud); the anchor is stored, rendered in Appendix B, and registered in the manifest and `verification.jsonl`. Session-anchored evidence verifies honestly as `unverified` (`session-anchored evidence requires a manual check against the session log`).
-- **Honest gaps** — unverified, insufficient, contradicted, and disproven claims keep a visible `[未核实]` / `[证据不足]` / `[与证据矛盾]` / `[已证伪]` marker in the report body and are listed in Appendix A. Nothing is silently passed.
+- **Honest gaps** — unverified, insufficient, contradicted, and disproven claims keep a visible `[UNVERIFIED]` / `[INSUFFICIENT]` / `[CONTRADICTED]` / `[DISPROVEN]` marker in the report body and are listed in Appendix A. Nothing is silently passed.
 - **No deep-research loop** — retrieval orchestration is deliberately reused: `ctx.web` for search/fetch, `ctx.jobs` for long runs. Planning and synthesis stay with the model (or an upstream plugin).
 
 ## Quick start
@@ -113,7 +117,7 @@ Then, in a session:
 
 ```
 evidence_add({ origin: "docs/market.md", title: "Market snapshot" })     # → ev-1a2b3c4d5e6f
-research_report({ topic: "示例行业概览", sections: [...], claims: [...], evidenceRefs: ["ev-1a2b…"] })
+research_report({ topic: "sample-industry-overview", sections: [...], claims: [...], evidenceRefs: ["ev-1a2b…"] })
 ledger_query({ claimId: "c1" })                                          # bindings + verdict
 ```
 
@@ -127,9 +131,9 @@ These are the plugin's real entry points; install once, then call one.
 
 ~~~sh
 research_report({
-  topic: "示例行业概览",
-  sections: [{ heading: "市场规模", paragraphs: [{ text: "2025 年全球示例行业市场规模为 1,280 亿元。", claimIds: ["c1"] }] }],
-  claims: [{ id: "c1", text: "市场规模为 1,280 亿元", evidenceIds: ["ev-5dc0a84d0e48"] }],
+  topic: "sample-industry-overview",
+  sections: [{ heading: "Market size", paragraphs: [{ text: "In 2025 global sample industry market size reached $128B.", claimIds: ["c1"] }] }],
+  claims: [{ id: "c1", text: "market size reached $128B", evidenceIds: ["ev-5dc0a84d0e48"] }],
   evidenceRefs: ["ev-5dc0a84d0e48", "ev-c6cf024e0916", "ev-61f8f4533cb7"]
 })
 ~~~
@@ -137,7 +141,7 @@ research_report({
 **Output**
 
 ~~~text
-report sealed: /tmp/rr-test-4U2mlF/reports/示例行业概览/20261019-124904
+report sealed: /tmp/rr-test-4U2mlF/reports/sample-industry-overview/20261019-124904
 seal (sha256 of manifest.json): 5c85c97597096ced281ca191d7abaaf7434f18b397d35ac81c31aa364a3b12f9
 claims: 1 verified / 0 unverified / 0 contradicted / 0 insufficient / 0 disproven (of 1); evidence bound: 3
 ~~~
@@ -155,7 +159,7 @@ claims: 1 verified / 0 unverified / 0 contradicted / 0 insufficient / 0 disprove
 **Output**
 
 ~~~text
-edge-case (no throw): isError=false; kind=sealed; verdicts[0]={"claimId":"c1","status":"unverified","note":"claim binds no evidence snapshot"}; counts={"verified":0,"unverified":1,"contradicted":0,"insufficient":0,"disproven":0}; evidenceCount=0; report.md marker=Growth was 42%. [未核实]
+edge-case (no throw): isError=false; kind=sealed; verdicts[0]={"claimId":"c1","status":"unverified","note":"claim binds no evidence snapshot"}; counts={"verified":0,"unverified":1,"contradicted":0,"insufficient":0,"disproven":0}; evidenceCount=0; report.md marker=Growth was 42%. [UNVERIFIED]
 ~~~
 
 *Observed from `plugins/dsh-research-report/src/verify.ts:173-175 (unverified verdict); plugins/dsh-research-report/src/assemble.ts:209-220 (visible mark); plugins/dsh-research-report/README.md:87 (honest gaps); exercised through plugins/dsh-research-report/test/harness.ts`*

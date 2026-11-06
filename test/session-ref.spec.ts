@@ -94,7 +94,7 @@ describe('sessionRef rendering + honest unverified verdict', () => {
     // The verdict is honestly unverified (session-anchored, not byte-verified).
     const c1 = sealed.verdicts.find(verdict => verdict.claimId === 'c1')
     expect(c1?.status).toBe('unverified')
-    expect(c1?.note).toContain('会话锚定证据需人工回查会话日志')
+    expect(c1?.note).toContain('session-anchored evidence requires manual session-log review')
 
     // The report appendix renders the anchor reference.
     const report = await readFile(sealed.reportFile, 'utf8')

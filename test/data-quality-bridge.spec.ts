@@ -104,7 +104,7 @@ describe('dataQuality bridge integration (optional ctx.get seam)', () => {
     expect(c1?.status).toBe('disproven')
     expect(c1?.note).toContain('dataset row 3.nav is 9.7')
     const report = await readFile(sealed.reportFile, 'utf8')
-    expect(report).toContain('[已证伪]')
+    expect(report).toContain('[DISPROVEN]')
   })
 
   it('notes the absence of the bridge (claim declares dataset citations, verdict conservatively unverified)', async () => {

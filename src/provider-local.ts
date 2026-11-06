@@ -482,7 +482,7 @@ export class LocalResearchReportService extends ResearchReportService {
     if (sessionAnchored.length > 0) {
       byte = {
         status: 'unverified' as const,
-        note: `会话锚定证据需人工回查会话日志 (session-anchored evidence requires manual session-log review): ${sessionAnchored.join('; ')}`,
+        note: `session-anchored evidence requires manual session-log review: ${sessionAnchored.join('; ')}`,
         missing: [],
         contradictions: [],
       }

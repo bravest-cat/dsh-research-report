@@ -127,7 +127,7 @@ describe('explicit insufficient state', () => {
     expect(c1?.note).toContain('insufficient evidence')
 
     const report = await readFile(sealed.reportFile, 'utf8')
-    expect(report).toContain('[证据不足]')
+    expect(report).toContain('[INSUFFICIENT]')
     expect(report).toContain('🔍 insufficient')
     const manifest = await readManifest(sealed.reportDir)
     expect(manifest.verdicts.find(verdict => verdict.claimId === 'c1')?.status).toBe('insufficient')
@@ -160,9 +160,9 @@ describe('disproven state + disconfirmation.jsonl', () => {
     expect(manifest.disconfirmation?.entries).toBe(1)
     expect(manifest.disconfirmation?.sha256).toBe(createHash('sha256').update(journalText, 'utf8').digest('hex'))
     const report = await readFile(sealed.reportFile, 'utf8')
-    expect(report).toContain('## Appendix D: Disconfirmation log (证伪记录)')
+    expect(report).toContain('## Appendix D: Disconfirmation log')
     expect(report).toContain('🚫 disproven')
-    expect(report).toContain('[已证伪]')
+    expect(report).toContain('[DISPROVEN]')
   })
 })
 

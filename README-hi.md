@@ -10,7 +10,7 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-research-report)
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
-[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-research-report.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
+[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-research-report.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-badge)
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-top-rated.svg)](https://dsh.market/)
 [![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24-brightgreen.svg)](#)
 [![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-research-report/ci.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-research-report/actions)
@@ -43,7 +43,7 @@ dsh plugin --profile demo remove dsh-research-report    # अनइंस्ट�
 
 पंक्ति माउंट हुई या नहीं, जाँचें: `dsh --profile demo --dump-config | grep dsh-research-report`।
 
-## ⭐ 如果它帮到了你
+## ⭐ If this helped you
 
 यह प्लगइन [DSH प्लगइन परिवार](https://github.com/PerryLink) का हिस्सा है (95 प्लगइन, सभी Apache-2.0)। अगर यह उपयोगी लगे, तो **एक स्टार दें** — इससे कोई सुविधा अनलॉक नहीं होती, पर अगला व्यक्ति इसे खोज में आसानी से पा लेता है।
 
@@ -83,7 +83,7 @@ DeepSeek Harness के लिए सत्यापन-योग्य (verifia
 - **नकारात्मक ज्ञान** — एक disproven claim अपने कंटेंट हैश से याद रखा जाता है (`disproofs.jsonl`); अपरिवर्तित साक्ष्य के विरुद्ध पुनः रिपोर्ट किया गया वही पाठ वापस `disproven` में बलपूर्वक डाला जाता है और साक्ष्य बदलने पर ही पुनः जाँचा जाता है।
 - **रीड-ओनली verifier लूप** — सील करने के बाद नियतात्मक फॉलबैक `verifySealedReport` (शून्य नेटवर्क, शून्य मॉडल) सील व ऑडिट हैश दोबारा गिनता है और हर claim की पुनः जाँच करता है, `verifier-note.md` में मशीन-चेक भाग लिखता है; `ctx.jobs` माउंट होने पर एक रीड-ओनली verifier job भी चालू होता है (मॉडल समीक्षा वृद्धि है, प्रतिस्थापन नहीं)।
 - **सत्र-आधारित साक्ष्य** — `evidence_add` वैकल्पिक `sessionRef` (`sessionId` + `eventRange`, ठोंककर सत्यापित) स्वीकारता है; एंकर सहेजा जाता है और परिशिष्ट B, manifest व `verification.jsonl` में दर्ज होता है। सत्र-आधारित साक्ष्य ईमानदारी से `unverified` होता है (`सत्र-आधारित साक्ष्य के लिए सत्र लॉग की मैन्युअल जाँच आवश्यक है`)।
-- **ईमानदार खाली-जगहें** — unverified/insufficient/contradicted/disproven claim रिपोर्ट के मुख्य भाग में दृश्य चिह्न `[未核实]` / `[证据不足]` / `[与证据矛盾]` / `[已证伪]` रखते हैं और परिशिष्ट A में सूचीबद्ध होते हैं। कुछ भी चुपचाप पारित नहीं होता।
+- **ईमानदार खाली-जगहें** — unverified/insufficient/contradicted/disproven claim रिपोर्ट के मुख्य भाग में दृश्य चिह्न `[UNVERIFIED]` / `[INSUFFICIENT]` / `[CONTRADICTED]` / `[DISPROVEN]` रखते हैं और परिशिष्ट A में सूचीबद्ध होते हैं। कुछ भी चुपचाप पारित नहीं होता।
 - **कोई deep-research लूप नहीं** — रिट्रीवल ऑर्केस्ट्रेशन जानबूझकर पुनः उपयोगित है: खोज/फेच `ctx.web`, लंबे कार्य `ctx.jobs`। योजना और संश्लेषण मॉडल (या अपस्ट्रीम प्लगिन) के पास रहते हैं।
 
 ## Quick start
@@ -112,7 +112,7 @@ dsh plugin --profile demo add dsh-research-report
 
 ```
 evidence_add({ origin: "docs/market.md", title: "Market snapshot" })     # → ev-1a2b3c4d5e6f
-research_report({ topic: "示例行业概览", sections: [...], claims: [...], evidenceRefs: ["ev-1a2b…"] })
+research_report({ topic: "sample-industry-overview", sections: [...], claims: [...], evidenceRefs: ["ev-1a2b…"] })
 ledger_query({ claimId: "c1" })                                          # बाइंडिंग + निर्णय
 ```
 
@@ -126,9 +126,9 @@ ledger_query({ claimId: "c1" })                                          # ब�
 
 ~~~sh
 research_report({
-  topic: "示例行业概览",
-  sections: [{ heading: "市场规模", paragraphs: [{ text: "2025 年全球示例行业市场规模为 1,280 亿元。", claimIds: ["c1"] }] }],
-  claims: [{ id: "c1", text: "市场规模为 1,280 亿元", evidenceIds: ["ev-5dc0a84d0e48"] }],
+  topic: "sample-industry-overview",
+  sections: [{ heading: "Market Size", paragraphs: [{ text: "In 2025, the global sample industry market size reached $128B.", claimIds: ["c1"] }] }],
+  claims: [{ id: "c1", text: "Market size was $128B", evidenceIds: ["ev-5dc0a84d0e48"] }],
   evidenceRefs: ["ev-5dc0a84d0e48", "ev-c6cf024e0916", "ev-61f8f4533cb7"]
 })
 ~~~
@@ -136,7 +136,7 @@ research_report({
 **आउटपुट**
 
 ~~~text
-report sealed: /tmp/rr-test-4U2mlF/reports/示例行业概览/20261019-124904
+report sealed: /tmp/rr-test-4U2mlF/reports/sample-industry-overview/20261019-124904
 seal (sha256 of manifest.json): 5c85c97597096ced281ca191d7abaaf7434f18b397d35ac81c31aa364a3b12f9
 claims: 1 verified / 0 unverified / 0 contradicted / 0 insufficient / 0 disproven (of 1); evidence bound: 3
 ~~~
@@ -154,7 +154,7 @@ claims: 1 verified / 0 unverified / 0 contradicted / 0 insufficient / 0 disprove
 **आउटपुट**
 
 ~~~text
-edge-case (no throw): isError=false; kind=sealed; verdicts[0]={"claimId":"c1","status":"unverified","note":"claim binds no evidence snapshot"}; counts={"verified":0,"unverified":1,"contradicted":0,"insufficient":0,"disproven":0}; evidenceCount=0; report.md marker=Growth was 42%. [未核实]
+edge-case (no throw): isError=false; kind=sealed; verdicts[0]={"claimId":"c1","status":"unverified","note":"claim binds no evidence snapshot"}; counts={"verified":0,"unverified":1,"contradicted":0,"insufficient":0,"disproven":0}; evidenceCount=0; report.md marker=Growth was 42%. [UNVERIFIED]
 ~~~
 
 *स्रोत `plugins/dsh-research-report/src/verify.ts:173-175 (unverified verdict); plugins/dsh-research-report/src/assemble.ts:209-220 (visible mark); plugins/dsh-research-report/README.md:87 (honest gaps); exercised through plugins/dsh-research-report/test/harness.ts`*

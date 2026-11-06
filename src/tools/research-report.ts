@@ -233,7 +233,7 @@ export function makeResearchReportTool(deps: ResearchReportToolDeps) {
     description: [
       'Assemble and seal a verifiable research report (dsh-research-report).',
       '',
-      'Every claim must bind evidence already in the ledger (evidence_add) and is verified against the stored bytes: numbers and quoted spans must be locatable verbatim. The report directory is versioned and sealed (manifest.json + SHA-256 seal hash); unverified or contradicted claims keep a visible [未核实] / [与证据矛盾] marker in the body and are listed in Appendix A — they are never silently passed.',
+      'Every claim must bind evidence already in the ledger (evidence_add) and is verified against the stored bytes: numbers and quoted spans must be locatable verbatim. The report directory is versioned and sealed (manifest.json + SHA-256 seal hash); unverified or contradicted claims keep a visible [UNVERIFIED] / [CONTRADICTED] marker in the body and are listed in Appendix A — they are never silently passed.',
       '',
       'Optional convenience: set gather: true to run ONE search round over the topic via the harness web capability. Captured snapshots are registered as evidence; the candidate list plus an explicit gap list come back for your confirmation — nothing is assembled automatically.',
       '',

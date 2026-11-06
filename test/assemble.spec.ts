@@ -152,7 +152,7 @@ describe('renderReportMarkdown', () => {
         { claimId: 'c2', status: 'disproven', note: 'disproves the claim' },
       ],
     }))
-    expect(text).toContain('## Appendix D: Disconfirmation log (证伪记录)')
+    expect(text).toContain('## Appendix D: Disconfirmation log')
     expect(text).toContain('| c1 | ❌ contradicted | ev-a | snapshot says otherwise |')
     expect(text).toContain('| c2 | 🚫 disproven |  |')
     const clean = renderReportMarkdown(planOf())

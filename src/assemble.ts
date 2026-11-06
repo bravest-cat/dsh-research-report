@@ -20,16 +20,16 @@ import type { AssembleReportRequest, ClaimVerdict } from './service.ts'
 export const MANIFEST_SCHEMA = 'dsh-research-report/v1'
 
 /** Body marker appended after a paragraph per UNVERIFIED claim it cites. */
-export const UNVERIFIED_MARK = '[未核实]'
+export const UNVERIFIED_MARK = '[UNVERIFIED]'
 
 /** Body marker appended after a paragraph per CONTRADICTED claim it cites. */
-export const CONTRADICTED_MARK = '[与证据矛盾]'
+export const CONTRADICTED_MARK = '[CONTRADICTED]'
 
 /** Body marker appended after a paragraph per INSUFFICIENT claim it cites. */
-export const INSUFFICIENT_MARK = '[证据不足]'
+export const INSUFFICIENT_MARK = '[INSUFFICIENT]'
 
 /** Body marker appended after a paragraph per DISPROVEN claim it cites. */
-export const DISPROVEN_MARK = '[已证伪]'
+export const DISPROVEN_MARK = '[DISPROVEN]'
 
 /** A loud assemble-time request validation failure. */
 export class RequestValidationError extends Error {
@@ -258,7 +258,7 @@ export function renderReportMarkdown(plan: ReportPlan): string {
     '',
   )
 
-  lines.push('## Appendix D: Disconfirmation log (证伪记录)', '')
+  lines.push('## Appendix D: Disconfirmation log', '')
   const falsified = plan.verdicts.filter(verdict => verdict.status === 'contradicted' || verdict.status === 'disproven')
   if (falsified.length === 0) {
     lines.push('No claims were contradicted or disproven.', '')

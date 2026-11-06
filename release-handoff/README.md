@@ -7,7 +7,7 @@ ENEEDAUTH, PAT blocked by the mounted dsh-defend guard) — so per the §0.3
 rule "permission insufficient: commit locally, stop, hand over the command
 list, never fake success", everything executable locally was executed and
 the credentialed steps are handed over here. See SUMMARY.md, section
-「发布交接（§0.3 收尾链执行状态）」 for the full status and command list.
+"Release Handoff (§0.3 Chain Execution Status)" for the full status and command list.
 
 ## Files
 
